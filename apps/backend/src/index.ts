@@ -1,11 +1,30 @@
 import "dotenv/config";
-import express from "express";
+import express, { Response } from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import { config } from "./config/app.config";
 
 const app = express();
+const BASE_PATH = config.BASE_PATH;
 
-app.get("/health", (req, res) => {
-  res.send("Server running");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: config.APP_ORIGIN,
+    credentials: true,
+  })
+);
+app.use(cookieParser());
+
+app.get("/health", (_, res: Response) => {
+  res.status(200).json({
+    message: "Server running",
+  });
 });
-app.listen(4004, () => {
-  console.log(`Server is running on port 4004`);
+
+app.listen(config.PORT, () => {
+  console.log(
+    `Server is running on port ${config.PORT} in ${config.NODE_ENV} environment`
+  );
 });
