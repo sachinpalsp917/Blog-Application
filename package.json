@@ -21,6 +21,10 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@types/mongoose": "^5.11.96",
     "turbo": "^2.7.4"
+  },
+  "dependencies": {
+    "mongoose": "^9.1.4"
   }
 }
